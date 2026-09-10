@@ -18,6 +18,7 @@ int main(void)
 
 	// Usando el logger creado previamente
 	// Escribi: "Hola! Soy un log"
+	log_info(logger, "Hola! Soy un log");
 
 
 	/* ---------------- ARCHIVOS DE CONFIGURACION ---------------- */
@@ -26,7 +27,9 @@ int main(void)
 
 	// Usando el config creado previamente, leemos los valores del config y los 
 	// dejamos en las variables 'ip', 'puerto' y 'valor'
-
+	ip = config_get_string_value(config, "IP");
+	puerto = 4444;
+	valor = ________;
 	// Loggeamos el valor de config
 
 
@@ -56,12 +59,20 @@ t_log* iniciar_logger(void)
 {
 	t_log* nuevo_logger;
 
+	nuevo_logger = log_create("tp0.log", "CLIENTE", true, LOG_LEVEL_INFO);
+
 	return nuevo_logger;
 }
 
 t_config* iniciar_config(void)
 {
 	t_config* nuevo_config;
+
+	nuevo_config = config_create("cliente.config");
+
+	if (nuevo_config == NULL){
+		abort();
+	}
 
 	return nuevo_config;
 }
