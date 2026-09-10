@@ -1,4 +1,6 @@
 #include "client.h"
+#include <readline/readline.h>
+
 
 int main(void)
 {
@@ -28,9 +30,10 @@ int main(void)
 	// Usando el config creado previamente, leemos los valores del config y los 
 	// dejamos en las variables 'ip', 'puerto' y 'valor'
 	ip = config_get_string_value(config, "IP");
-	puerto = 4444;
-	valor = ________;
+	puerto = config_get_string_value(config, "PUERTO");
+	valor = config_get_string_value(config, "CLAVE");
 	// Loggeamos el valor de config
+	log_info(logger, "Valor leido del config: %s", valor);
 
 
 	/* ---------------- LEER DE CONSOLA ---------------- */
@@ -83,6 +86,12 @@ void leer_consola(t_log* logger)
 
 	// La primera te la dejo de yapa
 	leido = readline("> ");
+	while (strcmp(leido, "")){
+		log_info(logger, "%s", leido);
+		free(leido);
+		leido = readline("> ");
+	}
+	free(leido);
 
 	// El resto, las vamos leyendo y logueando hasta recibir un string vacío
 
